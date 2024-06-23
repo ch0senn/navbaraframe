@@ -1,15 +1,400 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+    
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aframe APP Nested DD Navbar</title>
+    
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.1/css/fontawesome.min.css">
+<script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+<script src="https://unpkg.com/super-hands/dist/super-hands.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-physics-system@v4.1.0/dist/aframe-physics-system.js"></script>
+<script src="https://unpkg.com/aframe-event-set-component@4.2.1/dist/aframe-event-set-component.min.js"></script>
+<script src="https://unpkg.com/aframe-physics-extras/dist/aframe-physics-extras.min.js"></script>
+<script src="https://unpkg.com/aframe-environment-component@1.3.2/dist/aframe-environment-component.min.js"></script>
+<script src="https://unpkg.com/aframe-touch-inspector@1.1.2/dist/aframe-inspector.min.js"></script>
+<script src="https://unpkg.com/aframe-ground-component@0.0.4/dist/aframe-ground-component.min.js"></script>
+<script src="aframe-gltf-exporter-component.min.js"></script>
+<script src="aframe-ui-widgets.min.js"></script>
+<!--start-->
+<script src="https://unpkg.com/aframe-teleport-controls@0.2.x/dist/aframe-teleport-controls.min.js"></script>
+<script src="https://unpkg.com/aframe-controller-cursor-component@0.2.x/dist/aframe-controller-cursor-component.min.js"></script>
+<script src="https://rawgit.com/ngokevin/kframe/csstricks/scenes/aincraft/components/random-color.js"></script>
+<script src="https://rawgit.com/ngokevin/kframe/csstricks/scenes/aincraft/components/snap.js"></script>
+<script src="https://rawgit.com/ngokevin/kframe/csstricks/scenes/aincraft/components/intersection-spawn.js"></script>
 
+<script src="https://unpkg.com/aframe-animation-component@3.2.1/dist/aframe-animation-component.min.js"></script>
+<script src="https://unpkg.com/aframe-particle-system-component@1.0.x/dist/aframe-particle-system-component.min.js"></script>
+<script src="https://unpkg.com/aframe-extras.ocean@%5E3.5.x/dist/aframe-extras.ocean.min.js"></script>
+<script src="https://unpkg.com/aframe-gradient-sky@1.0.4/dist/gradientsky.min.js"></script>
+<script src="https://unpkg.com/aframe-snapto-component/dist/aframe-snapto-component.js"></script>
+
+<script src="https://unpkg.com/aframe-layout-component@4.3.1/dist/aframe-layout-component.min.js"></script>
+<script src="https://unpkg.com/aframe-orbit-controls@1.2.0/dist/aframe-orbit-controls.min.js"></script>
+<script src="https://unpkg.com/aframe-datgui-component/dist/aframe-datgui-component.min.js"></script>
+<script src="https://cdn.rawgit.com/gftruj/aframe-physics-spring/master/dist/aframe-spring.min.js"></script>
+<script src="https://unpkg.com/aframe-spherical-controls-component/dist/aframe-spherical-controls-component.min.js"></script>
+<script src="https://rawgit.com/chenzlabs/auto-detect-controllers/master/dist/aframe-auto-detect-controllers-component.min.js"></script>
+<script src="https://unpkg.com/aframe-gltf-helpers@0.0.2/dist/aframe-gltf-helpers.min.js"></script>
+<script src="https://rawgit.com/dbradleyfl/aframe-gridhelper/master/dist/aframe-gridhelper-component.min.js"></script>
+<script src="https://rawgit.com/dbradleyfl/aframe-selectable-light-component/master/dist/aframe-selectable-light-component.min.js"></script>
+
+
+<script src="js/aframe-extras.min.js"></script>
+<script src="js/aframe-extras.controls.min.js"></script>
+<script src="js/aframe-extras.misc.js"></script>
+<script src="js/aframe-extras.loaders.js"></script>
+<script src="js/aframe-extras.pathfinding.js"></script>
+<script src="js/aframe-extras.primitives.js"></script>
+<script src="js/aframe-point-component.min.js"></script>
+<script src="js/aframe-alongpath-component.min.js"></script>
+<script src="js/aframe-layout-component.min.js"></script>
+<script src="js/aframe-screenshot-component.min.js"></script>
+<script src="js/aframe-gltfutils.min.js"></script>
+
+<script src="js/grab.js"></script>
+<script src="js/grab.min.js"></script>
+<script src="js/grab-lock.js"></script>
+<script src="js/GLTFPart.js"></script>
+<script src="js/Vartiste.js"></script>
+
+<script src="js/RegisteredAF.js"></script>
+<script src="js/manipulator.js"></script>
+<script src="js/movement-controls.js"></script>
+<script src="js/PointCloudPLY.js"></script>
+
+<script src="js/aframe-drag-and-drop-component.min.js"></script>
+<script src="js/aframe-crawling-cursor.min.js"></script>
+
+<!--reaction components-->
+<script src="reaction_components/clickable.js"></script>
+<script src="reaction_components/draggable.js"></script>
+<script src="reaction_components/drag-droppable.js"></script>
+<script src="reaction_components/hoverable.js"></script>
+<script src="reaction_components/stretchable.js"></script>
+<script src="reaction_components/droppable.js"></script>
+<script src="reaction_components/grabbable.js"></script>
+
+<!--end-->
+<script>
+    //color randomizer
+    AFRAME.registerComponent('color-randomizer', {
+        play: function () {
+            this.el.addEventListener('drag-drop', function (evt) {
+                evt.detail.dropped.setAttribute('material', 'color',
+                    '#' + (Math.random() * 0xFFFFFF << 0).toString(16))
+                // color randomizer credit: http://stackoverflow.com/questions/1484506/random-color-generator-in-javascript#comment6801353_5365036
+            })
+        }
+    })
+    // forward mouse and touch events to the super-hands entity
+    AFRAME.registerComponent('capture-mouse', {
+        init: function () {
+            this.eventRepeater = this.eventRepeater.bind(this)
+            this.el.sceneEl.addEventListener('loaded', () => {
+                this.el.sceneEl.canvas.addEventListener('mousedown', this.eventRepeater)
+                this.el.sceneEl.canvas.addEventListener('mouseup', this.eventRepeater)
+                this.el.sceneEl.canvas.addEventListener('touchstart', this.eventRepeater)
+                this.el.sceneEl.canvas.addEventListener('touchmove', this.eventRepeater)
+                this.el.sceneEl.canvas.addEventListener('touchend', this.eventRepeater)
+            }, { once: true })
+        },
+        eventRepeater: function (evt) {
+            if (evt.type.startsWith('touch')) {
+                evt.preventDefault()
+                // avoid repeating touchmove because it interferes with look-controls
+                if (evt.type === 'touchmove') { return }
+            }
+            this.el.emit(evt.type, evt.detail)
+        }
+    })
+</script>
+
+<script type="text/javascript">
+    if (window.AFRAME == null) {
+        console.error("aframe not found, please import it before this component.")
+    }
+
+    AFRAME.registerSystem("track-cursor", {
+        init: function () {
+            this.el.setAttribute("cursor", { rayOrigin: "mouse" });
+        }
+    });
+
+    AFRAME.registerComponent("track-cursor", {
+        init: function () {
+            this.el.addEventListener("mousedown", e => {
+                if (this.el.is("cursor-hovered")) {
+                    this.el.sceneEl.camera.el.setAttribute("look-controls", {
+                        enabled: false
+                    });
+                    this.el.addState("dragging");
+                }
+            })
+            this.el.addEventListener("click", e => {
+                if (this.el.is("dragging")) {
+                    this.el.sceneEl.camera.el.setAttribute("look-controls", {
+                        enabled: true
+                    });
+                    this.el.removeState("dragging");
+                }
+            })
+        },
+    });
+
+    AFRAME.registerComponent("dragndrop", {
+        dependencies: ["track-cursor"],
+        init: function () {
+            this.range = 0;
+            this.dist = 0;
+
+            this.el.addEventListener("stateadded", e => {
+                if (e.detail == "dragging") {
+                    this.range = 0;
+                    this.dist = this.el.object3D.position
+                        .clone()
+                        .sub(this.el.sceneEl.camera.el.object3D.position)
+                        .length();
+                }
+            })
+
+            this.direction = new AFRAME.THREE.Vector3();
+            this.target = new AFRAME.THREE.Vector3();
+            document.addEventListener("wheel", e => {
+                if (e.deltaY < 0) {
+                    this.range += 0.1;
+                } else {
+                    this.range -= 0.1;
+                }
+            });
+        },
+        updateDirection: function () {
+            this.direction.copy(this.el.sceneEl.getAttribute("raycaster").direction);
+        },
+        updateTarget: function () {
+            let camera = this.el.sceneEl.camera.el
+            this.target.copy(
+                camera.object3D.position
+                    .clone()
+                    .add(this.direction.clone().multiplyScalar(this.dist + this.range))
+            );
+        },
+        tick: function () {
+            if (this.el.is("dragging")) {
+                this.updateDirection();
+                this.updateTarget();
+                this.el.object3D.position.copy(this.target);
+            }
+        }
+    });
+</script>
+
+<script>
+    AFRAME.registerComponent('click-impulse', {
+        init: function () {
+            var el = this.el;
+
+            el.addEventListener('click', function () {
+                el.body.applyImpulse(
+                    /* impulse */
+                    new CANNON.Vec3(
+                        THREE.Math.randInt(-20, 20),
+                        THREE.Math.randInt(-20, 20),
+                        THREE.Math.randInt(-20, 20)
+                    ),
+                                                                                                                                            /* world position */ new CANNON.Vec3().copy(el.getDOMAttribute('position'))
+                );
+            });
+
+        }
+    });
+
+    // forward mouse and touch events to the super-hands entity
+    AFRAME.registerComponent('capture-mouse', {
+        init: function () {
+            this.eventRepeater = this.eventRepeater.bind(this)
+            this.el.sceneEl.addEventListener('loaded', () => {
+                this.el.sceneEl.canvas.addEventListener('mousedown', this.eventRepeater)
+                this.el.sceneEl.canvas.addEventListener('mouseup', this.eventRepeater)
+                this.el.sceneEl.canvas.addEventListener('touchstart', this.eventRepeater)
+                this.el.sceneEl.canvas.addEventListener('touchmove', this.eventRepeater)
+                this.el.sceneEl.canvas.addEventListener('touchend', this.eventRepeater)
+            }, { once: true })
+        },
+        eventRepeater: function (evt) {
+            if (evt.type.startsWith('touch')) {
+                evt.preventDefault()
+                // avoid repeating touchmove because it interferes with look-controls
+                if (evt.type === 'touchmove') { return }
+            }
+            this.el.emit(evt.type, evt.detail)
+        }
+    })
+</script>
+
+<style>
+    a-scene {
+        height: 100%;
+        width: 100%;
+        margin-bottom: 0;
+        margin-top: 0;
+    }
+</style>
+
+<link rel="stylesheet" type="text/css" href="aframe.css">
+
+
+<style>
+    a-scene {
+        height: 100%;
+        width: 100%;
+        margin-bottom: 0;
+        margin-top: 0;
+    }
+</style>
+
+
+
+<style>
+    .button:hover {
+        background-color: #fff;
+        color: #e43b5e;
+    }
+
+    .button {
+        background-color: blue;
+        border-radius: 8px;
+        border: none;
+        color: #fff;
+        cursor: pointer;
+        display: inline-block;
+        font-size: 12px;
+        height: 34px;
+        margin-top: 5px;
+        margin-left: 5px;
+        outline: none;
+        position: relative;
+        width: 120px;
+        z-index: 999;
+    }
+
+    #container {
+        position: absolute;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+</style>
+
+<style>
+    .button info {
+        background-color: red;
+        border-radius: 2px;
+        border: none;
+        color: white;
+        cursor: pointer;
+        display: inline-block;
+        font-size: 12px;
+        height: 34px;
+        margin-top: 5px;
+        margin-left: 5px;
+        outline: none;
+        position: relative;
+        width: 80px;
+        z-index: 999;
+    }
+
+    .button:hover {
+        background-color: #fff;
+        color: #e43b5e;
+    }
+
+    .button {
+        background-color: blue;
+        border-radius: 8px;
+        border: none;
+        color: #fff;
+        cursor: pointer;
+        display: inline-block;
+        font-size: 12px;
+        height: 34px;
+        margin-top: 5px;
+        margin-left: 5px;
+        outline: none;
+        position: relative;
+        width: 190px;
+        z-index: 999;
+    }
+
+    #container {
+        position: absolute;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+</style>
+<style>
+    body {
+        font-family: 'Lato', sans-serif;
+        color: white;
+    }
+
+    .overlay {
+        height: 100%;
+        width: 100%;
+        display: none;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        background-color: rgb(0,0,0);
+        background-color: rgba(0,0,0, 0.5);
+    }
+
+    .overlay-content {
+        position: relative;
+        top: 5%;
+        width: 100%;
+        text-align: center;
+        margin-top: 30px;
+    }
+
+    .overlay a {
+        padding: 8px;
+        text-decoration: none;
+        font-size: 36px;
+        color: white;
+        display: block;
+        transition: 0.3s;
+    }
+
+        .overlay a:hover, .overlay a:focus {
+            color: #f1f1f1;
+        }
+
+    .overlay .closebtn {
+        position: absolute;
+        top: 20px;
+        right: 45px;
+        font-size: 60px;
+    }
+
+    @media screen and (max-height: 450px) {
+        .overlay a {
+            font-size: 20px
+        }
+
+        .overlay .closebtn {
+            font-size: 40px;
+            top: 15px;
+            right: 35px;
+        }
+    }
+</style>
 
 </head>
 
@@ -866,7 +1251,504 @@
     <a-sky radius="35" color="lightblue"></a-sky>
 
 </a-scene>
+<script>
+    // Update individual nodes
+    document.querySelector('a-scene').addEventListener('loaded', function () {
+        document.getElementById("myNav").style.display = "block";
+    })
 
+</script>
+<script>
+    function exportGLTF(input, options) {
+        AFRAME.scenes[0].systems['gltf-exporter'].export(input, options);
+    }
+
+    document.getElementById('export-scene').addEventListener('click', function () {
+        exportGLTF();
+    });
+
+    document.getElementById('export-scene-bin').addEventListener('click', function () {
+        exportGLTF(undefined, { binary: true });
+    });
+
+    document.getElementById('export-redbxx').addEventListener('click', function () {
+        exportGLTF(document.getElementById('redb1'), { binary: true });
+    });
+
+    document.getElementById('export-redbyy').addEventListener('click', function () {
+        exportGLTF(document.getElementById('redb2'), { binary: true });
+    });
+
+    document.getElementById('export-redbzz').addEventListener('click', function () {
+        exportGLTF(document.getElementById('redbzz'), { binary: true });
+    });
+
+    document.getElementById('export-two').addEventListener('click', function () {
+        exportGLTF([document.getElementById('redbxx'), document.getElementById('redbyy')]);
+    });
+
+    document.getElementById('export-selector').addEventListener('click', function () {
+        exportGLTF(document.querySelectorAll("[geometry='primitive: box']"));
+    });
+
+</script>
+<script>
+    function openNav() {
+        document.getElementById("myNav").style.display = "block";
+    }
+
+    function closeNav() {
+        document.getElementById("myNav").style.display = "none";
+    }
+</script>
+<script>
+    function cmm1() {//set position relative to object plane
+        var mainCameraEl = document.querySelector('#cam1');
+        mainCameraEl.setAttribute('camera', 'active', true);
+
+        var secondCameraEl = document.querySelector('#cam2');
+        secondCameraEl.setAttribute('camera', 'active', false);
+        var thirdCameraEl = document.querySelector('#cam3');
+        thirdCameraEl.setAttribute('camera', 'active', false);
+        var fourthCameraEl = document.querySelector('#cam4');
+        fourthCameraEl.setAttribute('camera', 'active', false);
+        var fifthCameraEl = document.querySelector('#cam5');
+        fifthCameraEl.setAttribute('camera', 'active', false);
+    };
+
+    function cmm2() {//load
+        var mainCameraEl = document.querySelector('#cam1');
+        mainCameraEl.setAttribute('camera', 'active', false);
+
+        var secondCameraEl = document.querySelector('#cam2');
+        secondCameraEl.setAttribute('camera', 'active', true);
+        var thirdCameraEl = document.querySelector('#cam3');
+        thirdCameraEl.setAttribute('camera', 'active', false);
+        var fourthCameraEl = document.querySelector('#cam4');
+        fourthCameraEl.setAttribute('camera', 'active', false);
+        var fifthCameraEl = document.querySelector('#cam5');
+        fifthCameraEl.setAttribute('camera', 'active', false);
+    };
+
+
+    function cmm3() {
+        var mainCameraEl = document.querySelector('#cam1');
+        mainCameraEl.setAttribute('camera', 'active', false);
+
+
+        var secondCameraEl = document.querySelector('#cam2');
+        secondCameraEl.setAttribute('camera', 'active', false);
+        var thirdCameraEl = document.querySelector('#cam3');
+        thirdCameraEl.setAttribute('camera', 'active', true);
+    };
+
+    function cmm4() {
+        console.log(document.querySelector("prt1").getAttribute("material"))
+        if (document.querySelector("prt1").getAttribute("src") !== "m02") {
+            document.querySelector("prt1").setAttribute("src", "m01");
+        } else {
+            document.querySelector("prt1").setAttribute("src", "m02");
+
+        }
+    };
+
+
+
+    function evr() {
+        document.querySelector('a-scene').enterVR();
+    };
+    function screenshotr() {
+        document.querySelector('a-scene').components.screenshot.capture('equirectangular');
+    };
+    function screenshotp() {
+        document.querySelector('a-scene').components.screenshot.capture('perspective');
+    };
+    function cammy() {
+        document.querySelector('a-scene').components.screenshot.capture('perspective');
+    };
+</script>
+
+<script>
+    function exportGLTF(input, options) {
+        AFRAME.scenes[0].systems['gltf-exporter'].export(input, options);
+    }
+
+    document.getElementById('export-scene').addEventListener('click', function () {
+        exportGLTF();
+    });
+
+    document.getElementById('export-scene-bin').addEventListener('click', function () {
+        exportGLTF(undefined, { binary: true });
+    });
+
+    document.getElementById('export-joint1').addEventListener('click', function () {
+        exportGLTF(document.getElementById('joint1'), { binary: true });
+    });
+
+    document.getElementById('export-joint2').addEventListener('click', function () {
+        exportGLTF(document.getElementById('joint2'), { binary: true });
+    });
+
+    document.getElementById('export-two').addEventListener('click', function () {
+        exportGLTF([document.getElementById('blueBox'), document.getElementById('blueBox')]);
+    });
+
+    document.getElementById('export-selector').addEventListener('click', function () {
+        exportGLTF(document.querySelectorAll("[geometry='primitive: box']"));
+    });
+
+</script>
+<script>
+
+    function catty() {
+        document.getElementById('ctrl-alt-i').addEventListener('click', function () {
+            // create a new keyboard event
+            var event = new KeyboardEvent('keydown', {
+                key: 'i',
+                altKey: true,
+                ctrlKey: true
+            });
+            // dispatch the ctrl-alt+i key press event
+            document.dispatchEvent(event);
+        });
+
+
+        /*to auto-enter-vr*/
+        function cmm6() {
+
+        };
+
+        function cmm7() {//cadboxx opacity
+            var cadboxx = document.querySelector('planeboxx');
+            entityEl.setAttribute('opacity', 0.25);
+        };
+
+        function cmm8() {//get element by selection
+
+        };
+
+        function cmm9() {//set camera position from entity
+
+
+        };
+        function cmm10() {//click-animate a component part
+
+        };
+        function cmm11() {//open material dialogue for entity
+
+        };
+        function cmm12() {//export scene glb
+
+        };
+        function cmm13() {//export snapshot during animation dialogue
+
+        };
+        function cmm14() {//record avatar
+
+        };
+        function cmm15() {//open custom animation panel
+
+        };
+        function cmm16() {//set position relative to object plane
+
+        };
+
+        function cmm17() {//load
+
+        };
+
+        function cmm18() {
+
+
+        };
+
+        function cmm19() {//
+
+        };
+        function cmm20() {//
+
+        };
+        function cmm21() {//
+
+        };
+        function cmm22() {//
+
+        };
+        function cmm23() {//
+
+        };
+        function cmm24() {//
+
+        };
+        function cmm25() {//
+
+        };
+        function cmm26() {//
+
+        };
+        function cmm27() {//
+
+        };
+        function cmm28() {//
+
+        };
+        function cmm29() {//
+
+        };
+        function cmm30() {//
+
+        };
+
+        function cmmd1() {//
+
+        };
+        function cmmd2() {//
+
+        };
+        function cmmd3() {//
+
+        };
+        function cmmd4() {//
+
+        };
+        function cmmd5() {//
+
+        };
+        function cmmd6() {//
+
+        };
+        function cmmd7() {//
+
+        };
+        function cmmd8() {//
+
+        };
+        function cmmd9() {//
+
+        };
+        function cmmd10() {//
+
+        };
+        function cmmd11() {//
+
+        };
+        function cmmd12() {//
+
+        };
+        function cmmd13() {//
+
+        };
+        function cmmd14() {//
+
+        };
+        function cmmd15() {//
+
+        };
+        function cmmd16() {//
+
+        };
+        function cmmd17() {//
+
+        };
+        function cmmd18() {//
+
+        };
+        function cmmd19() {//
+
+        };
+        function cmmd20() {//
+
+        };
+        function cmmd21() {//
+
+        };
+        function cmmd22() {//
+
+        };
+        function cmmd23() {//
+
+        };
+        function cmmd24() {//
+
+        };
+        function cmmd25() {//
+
+        };
+
+
+
+
+
+        //cmma functions
+        function cmma1() {//enter vr
+            var scene = document.querySelector('a-scene');
+            scene.enterVR();
+        };
+        function cmma2() {//
+            entityEl.setAttribute('dynamic-body', {
+                shape: 'box',
+                mass: 1.5,
+                linearDamping: 0.005
+            });
+        };
+    };
+    function cmma3() {//
+        el.getObject3D('mesh').traverse(node => {
+            if (node.geometry) {
+                // node.geometry.attributes...
+            }
+        });
+    };
+    function cmma4() {//
+        sceneEl.components.inspector.openInspector();
+    };
+    function cmma5() {//
+        entityEl.setAttribute('position', { x: 1, y: 2: z: -3 });
+        // Or entityEl.setAttribute('position', '1 2 -3');
+    };
+    function cmma6() {//
+        // <a-entity geometry="primitive: cylinder; height: 4; radius: 2"></a-entity>
+        entityEl.setAttribute('geometry', { primitive: 'torusKnot', p: 1, q: 3, radiusTubular: 4 }, true);
+        // <a-entity geometry="primitive: torusKnot; p: 1; q: 3; radiusTubular: 4"></a-entity>
+
+    };
+    function cmma7() {//
+        //To remove or detach a component from an entity, we can use
+        //var cameraEl = document.querySelector('[camera]');
+        //cameraEl.removeAttribute('wasd-controls');
+
+    };
+    function cmma8() {//
+
+    };
+    function cmma9() {//
+
+    };
+    function cmma10() {//
+
+    };
+    function cmma11() {//
+
+    };
+    function cmma12() {//
+
+    };
+    function cmma13() {//
+
+    };
+    function cmma14() {//
+
+    };
+    function cmma15() {//
+
+    };
+    function cmma16() {//
+
+    };
+    function cmma17() {//
+
+    };
+    function cmma18() {//
+
+    };
+    function cmma19() {//
+
+    };
+    function cmma20() {//
+
+    };
+    function cmma21() {//
+
+    };
+    function cmma22() {//
+
+    };
+    function cmma23() {//
+
+    };
+    function cmma24() {//
+
+    };
+    function cmma25() {//
+
+    };
+</script>
+
+
+<script>
+    window.matl1 = function () {
+        var knot = document.getElementById("prt1");
+        knot.setAttribute('material', 'src', '#m01');
+    }
+    window.matl2 = function () {
+        var knot = document.getElementById("prt2");
+        knot.setAttribute('material', 'src', '#m02');
+    }
+    window.matl3 = function () {
+        var knot = document.getElementById("prt3");
+        knot.setAttribute('material', 'src', '#m03');
+    }
+    window.matl4 = function () {
+        var knot = document.getElementById("prt4");
+        knot.setAttribute('material', 'src', '#m04');
+    }
+    window.matl5 = function () {
+        var knot = document.getElementById("prt5");
+        knot.setAttribute('material', 'src', '#m05');
+    }
+    window.matl6 = function () {
+        var knot = document.getElementById("prt6");
+        knot.setAttribute('material', 'src', '#m06');
+    }
+    window.matl7 = function () {
+        var knot = document.getElementById("prt7");
+        knot.setAttribute('material', 'src', '#m07');
+    }
+    window.matl8 = function () {
+        var knot = document.getElementById("prt8");
+        knot.setAttribute('material', 'src', '#m08');
+    }
+    window.matl9 = function () {
+        var knot = document.getElementById("prt9");
+        knot.setAttribute('material', 'src', '#m09');
+    }
+    window.matl10 = function () {
+        var knot = document.getElementById("prt10");
+        knot.setAttribute('material', 'src', '#m10');
+    }
+    window.matl11 = function () {
+        var knot = document.getElementById("prt11");
+        knot.setAttribute('material', 'src', '#m11');
+    }
+    window.matl12 = function () {
+        var knot = document.getElementById("prt12");
+        knot.setAttribute('material', 'src', '#m12');
+    }
+    window.matl13 = function () {
+        var knot = document.getElementById("prt13");
+        knot.setAttribute('material', 'src', '#m13');
+    }
+    window.matl14 = function () {
+        var knot = document.getElementById("prt14");
+        knot.setAttribute('material', 'src', '#m14');
+    }
+    window.matl15 = function () {
+        var knot = document.getElementById("prt15");
+        knot.setAttribute('material', 'src', '#m15');
+    }
+    window.matl16 = function () {
+        var knot = document.getElementById("prt16");
+        knot.setAttribute('material', 'src', '#m16');
+    }
+    window.matl17 = function () {
+        var knot = document.getElementById("prt17");
+        knot.setAttribute('material', 'src', '#m17');
+    }
+    window.matl18 = function () {
+        var knot = document.getElementById("prt18");
+        knot.setAttribute('material', 'src', '#m18');
+    };
+</script>
         
 </body>
 
