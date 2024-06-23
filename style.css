@@ -8,6 +8,7 @@
 .main-menu {
     background: red;
     text-align: center;
+    z-index: 999;
 }
 
 ul {
