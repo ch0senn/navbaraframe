@@ -6,7 +6,7 @@
 
 
 .main-menu {
-    background: green;
+    background: red;
     text-align: center;
 }
 
@@ -36,7 +36,7 @@ ul li:hover {
 .main-menu>ul li:hover .sub-menu-1 {
     display: block;
     position: absolute;
-    background-color: green;
+    background-color: blue;
     margin-top: 15px;
     margin-left: -30px;
 }
