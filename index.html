@@ -290,53 +290,7 @@
     }
 </style>
 
-<style>
-    .button info {
-        background-color: red;
-        border-radius: 2px;
-        border: none;
-        color: white;
-        cursor: pointer;
-        display: inline-block;
-        font-size: 12px;
-        height: 34px;
-        margin-top: 5px;
-        margin-left: 5px;
-        outline: none;
-        position: relative;
-        width: 80px;
-        z-index: 999;
-    }
 
-    .button:hover {
-        background-color: #fff;
-        color: #e43b5e;
-    }
-
-    .button {
-        background-color: blue;
-        border-radius: 8px;
-        border: none;
-        color: #fff;
-        cursor: pointer;
-        display: inline-block;
-        font-size: 12px;
-        height: 34px;
-        margin-top: 5px;
-        margin-left: 5px;
-        outline: none;
-        position: relative;
-        width: 190px;
-        z-index: 999;
-    }
-
-    #container {
-        position: absolute;
-        width: 100%;
-        display: flex;
-        justify-content: center;
-    }
-</style>
 <style>
     body {
         font-family: 'Lato', sans-serif;
@@ -433,8 +387,7 @@
             </li>
         </ul>
     </div>
-    <a-scene physics="gravity:-10; friction:0.1; restitution:0.5"
-         gltf-exporter>
+    <a-scene physics="gravity:-10; friction:0.1; restitution:0.5" gltf-exporter>
     <!--environment="preset: contact"-->
     <a-assets>
         <a-mixin id="beveled-square" geometry="primitive: cone; radiusTop: 0.15; radiusBottom: 0.19; height: 0.02; segmentsRadial: 4; segmentsHeight: 1" rotation="0 45 0"></a-mixin>
@@ -1167,7 +1120,7 @@
         </a-entity>
     </a-entity>
 
-    <!--sphorb--
+    <!--sphorb-->
     <a-entity id="yellowSphere" mixin="rot0" position="0 0 0" rotation="0 0 0" scale=".3 .3 .3" static-body>
         <a-entity id="orb1" gltf-model="#bb02" mixin="rot0" position="0 0 0" rotation="0 0 0" scale="1000 1000 1000" static-body></a-entity>
         <a-entity id="orb2" gltf-model="#bb03" mixin="rot1" position="0 0 0" rotation="0 0 0" scale="1000 1000 1000" static-body
